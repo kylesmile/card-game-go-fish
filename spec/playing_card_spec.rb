@@ -10,4 +10,15 @@ describe PlayingCard do
       expect(card2.to_s).to eq 'Jack of Diamonds'
     end
   end
+
+  it "can be serialized and deserialized in JSON" do
+    card = PlayingCard.new('A', 'S')
+    card_json = card.to_json
+    parsed_card = JSON.parse(card_json)
+    card2 = PlayingCard.json_create(parsed_card)
+
+    expect(card_json).to eq(%q({"json_class":"PlayingCard","data":["A","S"]}))
+    expect(parsed_card).to eq({"json_class" => "PlayingCard", "data" => ["A", "S"]})
+    expect(card2).to be_an_instance_of(PlayingCard)
+  end
 end
