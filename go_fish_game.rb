@@ -48,7 +48,7 @@ class GoFishGame
     result.amount = cards.count
     result.new_books = hand(turn).take_cards(cards)
 
-    @turn += 1 unless result.wanted
+    @turn += 1 unless result.wanted #guess what his doesn't handle (yet)...
 
     result
   end

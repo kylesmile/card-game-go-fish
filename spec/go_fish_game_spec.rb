@@ -12,7 +12,7 @@ end
 
 describe GoFishGame do
 
-  before :each do
+  before do
     @game = GoFishGame.new(2)
   end
 
@@ -63,13 +63,6 @@ describe GoFishGame do
         expect(@game.turn).to eq(1)
       end
     end
-
-
-    #-------------------------------------------#
-    #                                           #
-    #                                           #
-    #                                           #
-    #-------------------------------------------#
 
     context "Top card in deck is what player wants" do
       it "says player1 got 1 card he wanted from the pond" do
