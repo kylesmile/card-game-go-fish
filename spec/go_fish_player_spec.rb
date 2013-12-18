@@ -13,16 +13,19 @@ class MockGoFishServer
       @server.close
     end
     
-    def send_hand_data
-      hand = GoFishHand.new([PlayingCard.new('A', 'S'), PlayingCard.new('J', 'D'), PlayingCard.new('Q', 'C')])
-      send_data = {'hand' => hand.as_json}
-      send_data['card_counts'] = [3,5,4,6]
-      @socket.puts(send_data.to_json)
+    def send_player_number
+      @socket.puts({'player_number' => 1}.to_json)
     end
     
-    def send_turn_data
-      send_data = {'you_are' => 1, 'turn' => 1}
-      @socket.puts(send_data.to_json)
+    def send_hand_data
+      hand = GoFishHand.new([PlayingCard.new('A', 'S'), PlayingCard.new('J', 'D'), PlayingCard.new('Q', 'C')])
+      hand_data = {'hand' => hand.as_json}
+      hand_data['hand_sizes'] = [3,5,4,6]
+      @socket.puts(hand_data.to_json)
+    end
+    
+    def send_turn
+      @socket.puts({'turn' => 1}.to_json)
     end
     
     def client_input
@@ -60,17 +63,18 @@ describe GoFishPlayer do
     
     it "connects to the server" do
       expect { @player.connect('localhost', 51528) }.not_to raise_error
+      @server.accept_connection
+      @server.send_player_number
+      @player.receive_from_server
+      expect(@player.player_number).to eq(1)
     end
-    
-    #Things it needs to do
-    #Only send good user input to the server
-    #Only send user input to the server when it's that player's turn
-    #Get hand, turn, round result data from server
     
     context "already connected to the server" do
       before do
         @player.connect('localhost')
         @server.accept_connection
+        @server.send_player_number
+        @player.receive_from_server
         @server.send_hand_data
         @player.receive_from_server
       end
@@ -78,14 +82,14 @@ describe GoFishPlayer do
       it "receives hand data from the server" do
         expect(@player.hand.number_of_cards).to eq(3)
         expect(@player.hand.books).to eq(0)
-        expect(@player.card_counts[2]).to eq(4)
+        expect(@player.hand_sizes[2]).to eq(4)
       end
       
       it "only sends user input to the server on that player's turn" do
         expect(@player.send_user_input("ask 3 for J")).to eq("It's not your turn")
         expect(@server.client_input).to be_nil
         
-        @server.send_turn_data
+        @server.send_turn
         @player.receive_from_server
         
         @player.send_user_input("ask 3 for J")
@@ -93,7 +97,7 @@ describe GoFishPlayer do
       end
       
       it "only sends good user input to the server" do
-        @server.send_turn_data
+        @server.send_turn
         @player.receive_from_server
         
         expect(@player.send_user_input("Blah blah blah")).to eq("What's that supposed to mean?")
@@ -108,8 +112,6 @@ describe GoFishPlayer do
         @player.send_user_input("Player 2, do you have any aces?")
         expect(@server.client_input).to eq('{"opponent":2,"card":"A"}')
       end
-    
     end
-    
   end
 end

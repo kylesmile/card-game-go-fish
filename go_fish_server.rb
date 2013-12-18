@@ -8,6 +8,10 @@ class GoFishServer
     @clients = []
   end
   
+  def stop
+    @server.close
+  end
+  
   def accept_connection
     @clients << @server.accept
   end

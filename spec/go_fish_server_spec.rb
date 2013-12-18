@@ -3,7 +3,7 @@ require 'spec_helper'
 class MockPlayer
   attr_reader :socket
   
-  def connect
+  def initialize
     @socket = TCPSocket.new('localhost', 51528)
   end
 end
@@ -14,12 +14,11 @@ describe GoFishServer do
   end
   
   after do
-    @server.close
+    @server.stop
   end
   
   it "accepts client connections" do
-    player = MockPlayer.new
-    expect { player.connect }.not_to raise_error
+    expect { player = MockPlayer.new }.not_to raise_error
     
     expect(@server.clients.count).to eq(0)
     
@@ -28,7 +27,5 @@ describe GoFishServer do
     expect(@server.clients.count).to eq(1)
   end
    
-  it "sets up the game when it gets enough connections" do
-    
-  end
+  # it "sets up the game when it gets enough connections"
 end

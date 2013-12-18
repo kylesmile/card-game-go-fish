@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe GoFishHand do
-  it "can be serialized and deserialized with JSON" do
+  it "can be serialized and deserialized" do
     hand = GoFishHand.new([PlayingCard.new('A', 'S'), PlayingCard.new('J', 'D')])
     hand_json = hand.to_json
     hand2 = JSON.load(hand_json)

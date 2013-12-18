@@ -31,18 +31,18 @@ class GoFishGame
     @hands[which - 1]
   end
 
-  def take_turn(asked_player, card)
+  def take_turn(opponent, card)
     result = GoFishRoundResult.new
     result.wanted = card
     
     wanted_card = PlayingCard.new(card)
-    cards = hand(asked_player).got_any(wanted_card)
+    cards = hand(opponent).got_any(wanted_card)
 
     if cards.empty?
       cards = @deck.deal
       result.from = "Pond"
     else
-      result.from = "Player #{asked_player}"
+      result.from = "Player #{opponent}"
     end
 
     result.got = (cards[0].value == wanted_card.value)

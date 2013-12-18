@@ -11,7 +11,7 @@ describe PlayingCard do
     end
   end
 
-  it "can be serialized and deserialized in JSON" do
+  it "can be serialized and deserialized" do
     card = PlayingCard.new('A', 'S')
     card_json = card.to_json
     card2 = JSON.load(card_json)
