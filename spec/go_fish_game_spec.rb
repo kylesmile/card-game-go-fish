@@ -54,7 +54,8 @@ describe GoFishGame do
 
         result = @game.take_turn(2, 'A')
 
-        expect(result.wanted).to eq(true)
+        expect(result.wanted).to eq('A')
+        expect(result.got).to eq(true)
         expect(result.amount).to eq(2)
         expect(result.from).to eq "Player 2"
         expect(result.new_books).to eq(0)
@@ -74,7 +75,8 @@ describe GoFishGame do
 
         result = @game.take_turn(2, '7')
 
-        expect(result.wanted).to eq(true)
+        expect(result.wanted).to eq('7')
+        expect(result.got).to eq(true)
         expect(result.amount).to eq(1)
         expect(result.from).to eq "Pond"
         expect(result.new_books).to eq(0)
@@ -94,7 +96,8 @@ describe GoFishGame do
 
         result = @game.take_turn(2, '4')
 
-        expect(result.wanted).to eq(false)
+        expect(result.wanted).to eq('4')
+        expect(result.got).to eq(false)
         expect(result.amount).to eq(1)
         expect(result.from).to eq "Pond"
         expect(result.new_books).to eq(0)
@@ -113,7 +116,8 @@ describe GoFishGame do
 
         result = @game.take_turn(2, 'A')
 
-        expect(result.wanted).to eq(true)
+        expect(result.wanted).to eq('A')
+        expect(result.got).to eq(true)
         expect(result.amount).to eq(1)
         expect(result.from).to eq "Player 2"
         expect(result.new_books).to eq(1)

@@ -32,19 +32,19 @@ class GoFishHand
     @books += new_books
     new_books
   end
-
-  def to_json(*arguments)
+  
+  def as_json
     {
       'json_class' => self.class.name,
-      'data' => @cards.to_json
-    }.to_json(*arguments)
+      'cards' => @cards.map { |card| card.as_json }
+    }
   end
 
-  def self.json_create(object_data)
-    data = JSON.parse(object_data['data'])
-    cards = data.map do |datum|
-      PlayingCard.json_create(datum)
-    end
-    new(cards)
+  def to_json(*arguments)
+    as_json.to_json(*arguments)
+  end
+
+  def self.json_create(hash)
+    self.new(hash['cards'])
   end
 end

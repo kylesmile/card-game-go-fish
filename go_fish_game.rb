@@ -33,6 +33,8 @@ class GoFishGame
 
   def take_turn(asked_player, card)
     result = GoFishRoundResult.new
+    result.wanted = card
+    
     wanted_card = PlayingCard.new(card)
     cards = hand(asked_player).got_any(wanted_card)
 
@@ -43,12 +45,12 @@ class GoFishGame
       result.from = "Player #{asked_player}"
     end
 
-    result.wanted = (cards[0].value == wanted_card.value)
+    result.got = (cards[0].value == wanted_card.value)
 
     result.amount = cards.count
     result.new_books = hand(turn).take_cards(cards)
 
-    @turn += 1 unless result.wanted #guess what his doesn't handle (yet)...
+    @turn += 1 unless result.got #guess what his doesn't handle (yet)...
 
     result
   end

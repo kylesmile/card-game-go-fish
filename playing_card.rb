@@ -3,6 +3,8 @@ require 'json'
 #/(10|[2-9]|[JQKA])\W*[of]*\W*([SDHC])\w*/i # Card name
 
 class PlayingCard
+  attr_reader :rank
+  
   RANKS = %w(2 3 4 5 6 7 8 9 10 J Q K A)
   SUITS = %w(C H D S)
   RANKNAMES = %w(2 3 4 5 6 7 8 9 10 Jack Queen King Ace)
@@ -18,15 +20,20 @@ class PlayingCard
   def to_s
     "#{RANKNAMES[value]} of #{(SUITNAMES[SUITS.index(@suit)])}"
   end
-
-  def to_json(*arguments)
+  
+  def as_json
     {
       'json_class' => self.class.name,
-      'data' => [@rank, @suit]
-    }.to_json(*arguments)
+      'rank' => @rank,
+      'suit' => @suit
+    }
   end
 
-  def self.json_create(object_data)
-    new(*object_data['data'])
+  def to_json(*arguments)
+    as_json.to_json(*arguments)
+  end
+
+  def self.json_create(hash)
+    self.new(hash['rank'], hash['suit'])
   end
 end

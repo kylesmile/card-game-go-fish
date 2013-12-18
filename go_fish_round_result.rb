@@ -1,3 +1,3 @@
 class GoFishRoundResult
-  attr_accessor :wanted, :amount, :from, :new_books
+  attr_accessor :wanted, :got, :amount, :from, :new_books
 end
