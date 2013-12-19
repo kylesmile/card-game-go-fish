@@ -13,6 +13,22 @@ class MockGoFishServer
       @server.close
     end
     
+    def send_round_result
+      round_result = GoFishRoundResult.new
+      round_result.turn = 1
+      round_result.wanted = 'A'
+      round_result.got = true
+      round_result.amount = 1
+      round_result.from = 2
+      round_result.source = "Pond"
+      round_result.new_books = 1
+      @socket.puts({'round_result' => round_result.as_json}.to_json)
+    end
+    
+    def send_game_over
+      @socket.puts({'winner' => 1}.to_json)
+    end
+    
     def send_player_number
       @socket.puts({'player_number' => 1}.to_json)
     end
@@ -65,8 +81,8 @@ describe GoFishPlayer do
       expect { @player.connect('localhost', 51528) }.not_to raise_error
       @server.accept_connection
       @server.send_player_number
-      @player.receive_from_server
-      expect(@player.player_number).to eq(1)
+      player_number = @player.receive_from_server['player_number']
+      expect(player_number).to eq(1)
     end
     
     context "already connected to the server" do
@@ -109,8 +125,32 @@ describe GoFishPlayer do
         expect(@player.send_user_input("Player 5, do you have any Jacks")).to eq("That player doesn't exist")
         expect(@server.client_input).to be_nil
         
+        expect(@player.send_user_input("Player 1, do you have any Aces?")).to eq("You can't ask yourself for cards!")
+        expect(@server.client_input).to be_nil
+        
         @player.send_user_input("Player 2, do you have any aces?")
+        sleep(0.0001)
         expect(@server.client_input).to eq('{"opponent":2,"card":"A"}')
+      end
+      
+      it "gets round results" do
+        @server.send_round_result
+        round_result = @player.receive_from_server['round_result']
+        
+        expect(round_result.turn).to eq(1)
+        expect(round_result.wanted).to eq('A')
+        expect(round_result.got).to eq(true)
+        expect(round_result.amount).to eq(1)
+        expect(round_result.from).to eq(2)
+        expect(round_result.source).to eq("Pond")
+        expect(round_result.new_books).to eq(1)
+      end
+      
+      it "gets the winner" do
+        @server.send_game_over
+        winner = @player.receive_from_server['winner']
+        
+        expect(winner).to eq(1)
       end
     end
   end

@@ -2,12 +2,20 @@ require_relative './playing_card'
 
 class CardDeck
   CardRanks = %w(2 3 4 5 6 7 8 9 10 J Q K A)
-  def initialize
-    @cards = PlayingCard::RANKS.map do |rank|
-      PlayingCard::SUITS.map do |suit|
+  def initialize(cards=nil)
+    if cards
+      @cards = cards.map do |card|
+        suit = card[-1]
+        rank = card[0..-2]
         PlayingCard.new(rank, suit)
       end
-    end.flatten
+    else
+      @cards = PlayingCard::RANKS.map do |rank|
+        PlayingCard::SUITS.map do |suit|
+          PlayingCard.new(rank, suit)
+        end
+      end.flatten
+    end
   end
 
   def has_cards?

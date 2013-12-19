@@ -3,7 +3,10 @@ require 'json'
 #/(10|[2-9]|[JQKA])\W*[of]*\W*([SDHC])\w*/i # Card name
 
 class PlayingCard
-  attr_reader :rank
+  attr_reader :rank, :suit
+  
+  RED = "\033[0;31m"
+  BLACK = "\033[0m"
   
   RANKS = %w(2 3 4 5 6 7 8 9 10 J Q K A)
   SUITS = %w(C H D S)
@@ -16,7 +19,11 @@ class PlayingCard
   def value
     RANKS.index(@rank)
   end
-
+  
+  def color
+    @suit.match(/[HD]/) ? RED : BLACK
+  end
+  
   def to_s
     "#{RANK_NAMES[value]} of #{(SUIT_NAMES[SUITS.index(@suit)])}"
   end

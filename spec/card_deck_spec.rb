@@ -23,4 +23,11 @@ describe CardDeck do
     @deck.deal(26)
     expect(@deck).not_to have_cards
   end
+  
+  it "can be initialized with a list of cards" do
+    deck = CardDeck.new(['AS','JD','QH'])
+    expect(deck.deal[0].rank).to eq('Q')
+    expect(deck.deal[0].rank).to eq('J')
+    expect(deck.deal[0].rank).to eq('A')
+  end
 end
