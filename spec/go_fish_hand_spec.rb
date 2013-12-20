@@ -14,6 +14,7 @@ describe GoFishHand do
   end
   
   it "can be printed as ascii art" do
+    # A refactoring of what you have in CardDeck.initialize so you could use it here would be nice
     hand = GoFishHand.new([PlayingCard.new('A', 'S'),
                            PlayingCard.new('J', 'D'),
                            PlayingCard.new('Q', 'H'),
@@ -26,6 +27,7 @@ describe GoFishHand do
     
     pretty = hand.pretty_cards
     
+    # HMMM... Could you test a single card first in more detail?
     expect(pretty.lines.count).to eq(10)
   end
 end

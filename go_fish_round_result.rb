@@ -11,6 +11,7 @@ class GoFishRoundResult
       string << " didn't want"
     end
     
+    # NOTE: "Pond" is a magic string.  Several ways to 'fix' this... simplest might be a pond_source? and pond_source = method
     if source == "Pond"
       string << " from the pond"
     end

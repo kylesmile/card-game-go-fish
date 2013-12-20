@@ -7,28 +7,13 @@ class GoFishGame
 
   def initialize(player_count)
     @number_of_players = player_count
+    @hand_size = @number_of_players <= 4 ? 7 : 5
     @turn = 1
   end
 
   def setup_game(hands = nil, deck = nil)
-    if deck
-      @deck = deck
-    else
-      @deck = CardDeck.new
-      @deck.shuffle
-    end
-
-    @hand_size = @number_of_players <= 4 ? 7 : 5
-
-    if hands
-      @hands = hands
-    else
-      @hands = []
-
-      @number_of_players.times do 
-        @hands << GoFishHand.new(@deck.deal(@hand_size))
-      end
-    end
+    @deck = deck || default_deck
+    @hands = hands || default_hands
   end
 
   def hand(which)
@@ -49,6 +34,7 @@ class GoFishGame
     @hands.map { |hand| hand.books }
   end
   
+  # This is a bit long and tedious to follow.  How can you refactor it using intention revealing names?
   def take_turn(opponent, card)
     result = GoFishRoundResult.new
     result.turn = @turn
@@ -84,4 +70,15 @@ class GoFishGame
 
     return result
   end
+
+  private
+    def default_deck
+      deck = CardDeck.new
+      deck.shuffle
+      return deck
+    end
+
+    def default_hands
+      Array.new(@number_of_players){GoFishHand.new(@deck.deal(@hand_size))}
+    end
 end

@@ -60,6 +60,7 @@ class GoFishPlayer
   end
 end
 
+# Some of this could be extracted into methods.
 if __FILE__ == $0
   player = GoFishPlayer.new
   print "What host? Press [enter] for default "

@@ -2,6 +2,9 @@ require_relative './playing_card'
 
 class CardDeck
   CardRanks = %w(2 3 4 5 6 7 8 9 10 J Q K A)
+  # a Comment identifying the format of cards expected... 
+  # This would fail if cards were actually an array of cards instead of strings
+  # Also, the conversion of a String to a PlayingCard could probably be better in PlayingCard so it can be used elsewhere
   def initialize(cards=nil)
     if cards
       @cards = cards.map do |card|

@@ -39,7 +39,7 @@ class GoFishHand
 
   def take_cards(cards)
     @cards.push(*cards)
-    @cards.sort! { |a,b| a.value <=> b.value}
+    sort_cards
     check_for_books
   end
   
@@ -50,6 +50,7 @@ class GoFishHand
                   ' -----  ']
   PRETTY_SUITS = {'C' => '♣', 'H' => '♥', 'S' => '♠', 'D' => '♦'}
   
+  # refactor this to make it more obvious
   def pretty_cards
     apparent_line = 0
     pretty_cards = ['','','','','']

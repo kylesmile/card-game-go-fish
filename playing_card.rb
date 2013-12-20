@@ -5,6 +5,7 @@ require 'json'
 class PlayingCard
   attr_reader :rank, :suit
   
+  # document here or in color what technique/standard you are using... a URL could help
   RED = "\033[0;31m"
   BLACK = "\033[0m"
   
