@@ -86,9 +86,9 @@ if __FILE__ == $0
       
       if hash.include?('turn')
         if hash['turn'] == player.player_number
-          puts "It's your turn"
+          puts "\nIt's your turn"
         else
-          puts "It's player #{hash['turn']}'s turn"
+          puts "\nIt's player #{hash['turn']}'s turn"
         end
       end
       
