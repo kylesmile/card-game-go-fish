@@ -35,7 +35,7 @@ class GoFishServer
   end
   
   def send_hand_data
-    data_to_send = {'hand_sizes' => @game.hand_sizes, 'books' => @game.books}
+    data_to_send = {'hand_sizes' => @game.hand_sizes, 'books' => @game.books, 'deck_size' => @game.deck_size}
     @clients.each_with_index do |client, index|
       which = index + 1
       data_to_send['hand'] = @game.hand(which).as_json

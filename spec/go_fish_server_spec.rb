@@ -83,6 +83,9 @@ describe GoFishServer do
       input1 = JSON.load(@player1.server_input)
       input2 = JSON.load(@player2.server_input)
       
+      expect(input1['deck_size']).not_to be_nil
+      expect(input2['deck_size']).not_to be_nil
+      
       expect(input1['hand']).not_to be_nil
       expect(input2['hand']).not_to be_nil
       

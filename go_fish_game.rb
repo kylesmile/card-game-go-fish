@@ -45,6 +45,10 @@ class GoFishGame
     @hands.map { |hand| hand.number_of_cards }
   end
   
+  def deck_size
+    @deck.number_of_cards
+  end
+  
   def books
     @hands.map { |hand| hand.books }
   end

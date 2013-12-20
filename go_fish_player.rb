@@ -79,16 +79,25 @@ if __FILE__ == $0
   
   Thread.new do
     loop do
+      begin
       hash = player.receive_from_server
       
       puts "You are player #{hash['player_number']}" if hash.include?('player_number')
-      puts "It's player #{hash['turn']}'s turn" if hash.include?('turn')
+      
+      if hash.include?('turn')
+        if hash['turn'] == player.player_number
+          puts "It's your turn"
+        else
+          puts "It's player #{hash['turn']}'s turn"
+        end
+      end
       
       if hash.include?('hand_sizes')
         hash['hand_sizes'].each_with_index do |size, index|
           which = index + 1
           puts "Player #{which} has #{hash['books'][index]} books and #{size} cards"
         end
+        puts "There are #{hash['deck_size']} cards left in the pond"
       end
       
       if hash.include?('hand')
@@ -101,8 +110,16 @@ if __FILE__ == $0
       puts hash['round_result'].to_s if hash.include?('round_result')
       
       if winner
-        puts "Player #{winner} wins!"
+        if winner == player.player_number
+          puts "You win!"
+        else
+          puts "Player #{winner} wins!"
+        end
         puts "Thanks for playing!"
+        Thread.main.kill
+      end
+      rescue => e
+        p e
         Thread.main.kill
       end
     end

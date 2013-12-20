@@ -35,7 +35,7 @@ class MockGoFishServer
     
     def send_hand_data
       hand = GoFishHand.new([PlayingCard.new('A', 'S'), PlayingCard.new('J', 'D'), PlayingCard.new('Q', 'C')])
-      hand_data = {'hand' => hand.as_json}
+      hand_data = {'hand' => hand.as_json, 'deck_size' => 20, 'books' => [0,5,2,1]}
       hand_data['hand_sizes'] = [3,5,4,6]
       @socket.puts(hand_data.to_json)
     end
@@ -92,13 +92,15 @@ describe GoFishPlayer do
         @server.send_player_number
         @player.receive_from_server
         @server.send_hand_data
-        @player.receive_from_server
+        @result = @player.receive_from_server
       end
       
       it "receives hand data from the server" do
         expect(@player.hand.number_of_cards).to eq(3)
         expect(@player.hand.books).to eq(0)
-        expect(@player.hand_sizes[2]).to eq(4)
+        expect(@player.hand_sizes).to eq([3,5,4,6])
+        expect(@result['books']).to eq([0,5,2,1])
+        expect(@result['deck_size']).to eq(20)
       end
       
       it "only sends user input to the server on that player's turn" do
