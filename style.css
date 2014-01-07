@@ -1,0 +1,130 @@
+/*
+Colors
+
+background: #ceceff 
+main: #aeaeff
+gradient light: #aaf
+gradient dark: #55f
+
+*/
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background-color: #ceceff;
+	padding: 0;
+	margin: 0;
+	font-family: "Gill Sans", sans-serif;
+}
+
+h1, h2 {
+	font-family: Times, serif;
+}
+
+h1 {
+	font-size: 3em;
+	margin: 0;
+}
+
+h2, section h1 {
+	font-size: 1.5em;
+}
+
+header h1, h2 {
+	display: inline;
+}
+
+header h2 {
+	clear: both;
+	margin-left: 2em;
+}
+
+nav {
+	font-size: 1.2em;
+}
+
+nav ul {
+	display: inline;
+}
+
+nav a {
+	text-decoration: none;
+	color: black;
+	padding: 0 1em;
+}
+
+nav li {
+	display: inline;
+	float: left;
+	background: linear-gradient(#aaf, #55f);
+	margin: 0;
+	border: 1px solid black;
+}
+
+nav li:hover {
+	background: linear-gradient(#55f, #aaf);
+}
+
+.game, header {
+	max-width: 750px;
+	margin: 0 auto;
+	padding: 1em;
+	background-color: #aeaeff;
+	border-bottom: 1px solid #bbf;
+	overflow: auto;
+}
+
+li {
+	list-style-type: none;
+}
+
+ul {
+	padding: 0;
+}
+
+.hand li, .books li, ul {
+	display: inline-block;
+}
+
+.hand, .books {
+	padding: 0 4em;
+	vertical-align: top;
+	width: 50%;
+}
+
+.hand {
+	float: left;
+	border-right: 1px solid #bbf;
+}
+
+.books {
+	float: right;
+}
+
+.books ul {
+	margin-left: 1.5em;
+	margin-right: 1.5em;
+}
+
+.opponents {
+	clear: both;
+	width: 100%;
+}
+
+.name:after {
+	content: ': ';
+}
+
+.book-count:before {
+	content: ', ';
+}
+
+.hand li {
+	text-indent: -50px;
+}
+
+.books li {
+	text-indent: -70px;
+}
