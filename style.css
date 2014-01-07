@@ -4,7 +4,7 @@ Colors
 background: #ceceff 
 main: #aeaeff
 gradient light: #aaf
-gradient dark: #55f
+gradient dark: #558eff
 
 */
 
@@ -52,19 +52,19 @@ nav ul {
 nav a {
 	text-decoration: none;
 	color: black;
-	padding: 0 1em;
+	padding: 0 2em;
 }
 
 nav li {
 	display: inline;
 	float: left;
-	background: linear-gradient(#aaf, #55f);
+	background: linear-gradient(#aaf, #558eff);
 	margin: 0;
 	border: 1px solid black;
 }
 
 nav li:hover {
-	background: linear-gradient(#55f, #aaf);
+	background: linear-gradient(#558eff, #aaf);
 }
 
 .game, header {
