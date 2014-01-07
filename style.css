@@ -88,6 +88,10 @@ ul {
 	display: inline-block;
 }
 
+.hand li {
+	-webkit-transform: matrix3d(0.85, -0.15, 0.1, 0.002, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1.2);
+}
+
 .hand, .books {
 	padding: 0 4em;
 	vertical-align: top;
