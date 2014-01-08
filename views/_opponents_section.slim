@@ -1,0 +1,9 @@
+section.opponents
+	h1 Opponents
+	ul
+		- opponents.each do |opponent|
+			li
+				span.name = opponent[:name]
+				span.card-count = opponent[:cards].to_s + ' cards'
+				- if opponent[:books] > 0
+					span.book-count = opponent[:books].to_s + ' books'

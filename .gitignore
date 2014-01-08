@@ -16,3 +16,7 @@ tmp
 .yardoc
 _yardoc
 doc/
+
+# Custom Stuff
+.sass-cache
+public/stylesheets/style.css

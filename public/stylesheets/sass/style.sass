@@ -1,0 +1,65 @@
+// Colors
+$color-main: #9ad
+$color-background: scale-color($color-main, $saturation: -70%, $lightness: 2%)
+$light-border-color: scale-color($color-main, $lightness: 15%, $saturation: 40%)
+$dark-color: scale-color($color-main, $lightness: -85%)
+$gradient-light: scale-color($color-main, $lightness: 30%, $saturation: -10%)
+$gradient-dark: scale-color($color-main, $lightness: -10%, $saturation: 10%)
+
+$light-border: 1px solid $light-border-color
+
+*
+	box-sizing: border-box
+	color: $dark-color
+
+h1
+	font-size: 3em
+
+h2, section h1
+	font-size: 1.5em
+
+ul
+	padding: 0
+
+li
+	list-style: none
+
+body
+	background-color: $color-background
+	margin: 0
+
+header, .game, footer
+	background-color: $color-main
+	max-width: 750px
+	margin: 0 auto
+	padding: 0.5em 1em
+	border-bottom: $light-border
+
+header
+	overflow: auto
+	h1, h2
+		display: inline-block
+	h2
+		margin-left: 2em
+
+nav
+	li
+		display: inline-block
+		float: left
+		border: 1px solid $dark-color
+		background: linear-gradient($gradient-light, $gradient-dark)
+		&:hover
+			background: linear-gradient($gradient-dark, $gradient-light)
+	a
+		text-decoration: none
+		color: $dark-color
+		padding: 0.2em 2em
+
+.opponents
+	clear: both
+	.name:after
+		content: ': '
+	.book-count:before
+		content: ', '
+
+@import "hand"

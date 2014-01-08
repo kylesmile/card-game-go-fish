@@ -1,0 +1,24 @@
+section.game
+	section.last-turn-results
+		h1 Previous turn results
+		p Joe asked Fred for kings, but Fred had none. Joe drew a card from the pond, but it wasn't a king.
+		p It's your turn
+	section.game-status
+		== slim :_hand_section, :locals => {:hand => hand}
+		== slim :_books_section, :locals => {:books => books}
+		== slim :_opponents_section, :locals => {:opponents => opponents}
+	section.turn
+		h1 Make your move
+		form action="#" name="play" method="post"
+			label for="opponent" Ask
+			select id="opponent" name="opponent"
+				option value="Fred" Fred
+				option value="Sam" Sam
+				option value="Joe" Joe
+			label for="card" for
+			select id="card" name="card"
+				option value="5" Fives
+				option value="6" Sixes
+				option value="9" Nines
+				option value="K" Kings
+			button type="submit" Submit
