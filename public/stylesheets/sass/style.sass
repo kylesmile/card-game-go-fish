@@ -1,65 +1,91 @@
 // Colors
-$color-main: #9ad
-$color-background: scale-color($color-main, $saturation: -70%, $lightness: 2%)
-$light-border-color: scale-color($color-main, $lightness: 15%, $saturation: 40%)
-$dark-color: scale-color($color-main, $lightness: -85%)
-$gradient-light: scale-color($color-main, $lightness: 30%, $saturation: -10%)
-$gradient-dark: scale-color($color-main, $lightness: -10%, $saturation: 10%)
+$main-color: #9ad
+$background-color: scale-color($main-color, $saturation: -70%, $lightness: 2%)
+$dark-color: scale-color($main-color, $lightness: -75%, $saturation: -30%)
+$gradient-light: scale-color($main-color, $lightness: 30%, $saturation: -10%)
+$gradient-dark: scale-color($main-color, $lightness: -10%, $saturation: 10%)
 
-$light-border: 1px solid $light-border-color
+$light-border: 1px solid $background-color
 
-*
-	box-sizing: border-box
-	color: $dark-color
-
-h1
-	font-size: 3em
-
-h2, section h1
-	font-size: 1.5em
-
-ul
-	padding: 0
-
-li
-	list-style: none
+// Media Queries
+$tablet-width: 768px
+$phone-width: 500px
 
 body
-	background-color: $color-background
-	margin: 0
+  -moz-box-sizing: border-box
+  box-sizing: border-box
+  color: $dark-color
+  font-family: "Times New Roman", Times, serif
 
-header, .game, footer
-	background-color: $color-main
-	max-width: 750px
-	margin: 0 auto
-	padding: 0.5em 1em
-	border-bottom: $light-border
+h1
+  font-family: Tahoma, Geneva, sans-serif
 
-header
-	overflow: auto
-	h1, h2
-		display: inline-block
-	h2
-		margin-left: 2em
+header h1
+  font-size: 3em
 
-nav
-	li
-		display: inline-block
-		float: left
-		border: 1px solid $dark-color
-		background: linear-gradient($gradient-light, $gradient-dark)
-		&:hover
-			background: linear-gradient($gradient-dark, $gradient-light)
-	a
-		text-decoration: none
-		color: $dark-color
-		padding: 0.2em 2em
+// section h1
+//   font-size: 1.5em
 
-.opponents
-	clear: both
-	.name:after
-		content: ': '
-	.book-count:before
-		content: ', '
+ul
+  padding: 0
+
+li
+  list-style: none
+
+body
+  background-color: $background-color
+  margin: 0
+
+.game, footer
+  max-width: 800px
+  background-color: $main-color
+  padding: 0.5em 1em
+  margin: 0 auto
+  border-bottom: $light-border
+
+.main-nav
+  background-color: $dark-color
+  
+  ul
+    margin: 0 auto
+    width: 800px
+    li
+      display: inline-block
+      border: 1px solid $dark-color
+      // background: linear-gradient($gradient-light, $gradient-dark)
+      &:hover
+        background: linear-gradient($gradient-dark, $gradient-light)
+    a
+      display: block
+      height: 100%
+      text-decoration: none
+      color: $main-color
+      padding: .75em 2em
+
+@media screen and (max-width: $phone-width)
+  .main-nav, header h1
+    margin-left: 0
+    display: block
 
 @import "hand"
+
+.last-turn-results
+  clear: both
+
+.opponents
+  .name:after
+    content: ': '
+  .book-count:before
+    content: ', '
+
+form
+  margin-bottom: 0.2em
+  p
+    display: inline-block
+  select, button, p
+    margin-right 0.2em
+
+@media screen and (max-width: $tablet-width)
+  form
+    select, button, label
+      margin-right: 0.3em

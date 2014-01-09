@@ -1,23 +1,32 @@
 .hand, .books
-	width: 50%
+	max-width: 50%
 	li
 		display: inline-block
 
 .hand
 	float: left
 	border-right: $light-border
+	padding-right: 1em
 	ul
-		padding: 0 50px
+		padding-left: 50px
 	li
 		text-indent: -50px
 
 .books
-	float: right
+	float: left
 	padding: 0 1em
 	ul
 		display: inline-block
-		margin: 0 0.1em
+		margin: 0 1px
 	li
 		text-indent: -65px
 	li:first-child
 		text-indent: 0
+
+@media screen and (max-width: $tablet-width)
+	.hand, .books
+		float: none
+		max-width: 100%
+		padding: 0
+	.hand
+		border-right: none
