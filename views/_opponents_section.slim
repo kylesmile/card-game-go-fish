@@ -6,4 +6,4 @@ section.opponents
 				span.name = opponent[:name]
 				span.card-count = opponent[:cards].to_s + ' cards'
 				- if opponent[:books] > 0
-					span.book-count = opponent[:books].to_s + ' books'
+					span.book-count = opponent[:books].to_s + " book#{"s" if opponent[:books] > 1}"

@@ -1,0 +1,6 @@
+section.last-turn-results
+  h1 Previous turn results
+  - asked = opponents[0..-2].sample[:name]
+  - asker = opponents.last[:name]
+  p = "#{asker} asked #{asked} for kings, but #{asked} had none. #{asker} drew a card from the pond, but it wasn't a king."
+  p It's your turn

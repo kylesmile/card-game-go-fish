@@ -1,0 +1,17 @@
+section.turn
+    h1 Make your move
+    form action="#" name="play" method="post"
+    
+      select id="opponent" name="opponent"
+        - opponents.each do |opponent|
+          option value="#{opponent[:name]}" = opponent[:name]
+      
+      p , do you have any
+      
+      select id="card" name="card"
+        - hand.uniq { |card| card[1..-1] }.each do |card|
+          option value="#{card[1..-1]}" = card[1..-1].upcase
+      
+      p 's?
+      
+      button type="submit" Ask
