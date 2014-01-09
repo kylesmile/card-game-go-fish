@@ -13,12 +13,6 @@ body
 h1
   font-family: Tahoma, Geneva, sans-serif
 
-header h1
-  font-size: 3em
-
-// section h1
-//   font-size: 1.5em
-
 ul
   padding: 0
 
@@ -55,30 +49,9 @@ body
       color: $main-color
       padding: .75em 2em
 
-@media screen and (max-width: $phone-width)
-  .main-nav, header h1
-    margin-left: 0
-    display: block
-
-@import "hand"
-
-.last-turn-results
-  clear: both
-
-.opponents
-  .name:after
-    content: ': '
-  .book-count:before
-    content: ', '
-
 form
   margin-bottom: 0.2em
   p
     display: inline-block
   select, button, p
     margin-right 0.2em
-
-@media screen and (max-width: $tablet-width)
-  form
-    select, button, label
-      margin-right: 0.3em
