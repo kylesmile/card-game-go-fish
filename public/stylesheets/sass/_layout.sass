@@ -1,7 +1,23 @@
 .main-content
   float: left
   width: 65%
-  
+
 .metadata
   float: left
   width: 35%
+
+@media screen and (max-width: $tablet-width)
+  .main-content
+    width: 100%
+  .metadata
+    float: none
+    width: 100%
+    .last-turn-results, .opponents
+      float: left
+      width: 50%
+      padding: 0.2em
+
+@media screen and (max-width: $phone-width)
+  .metadata
+    .last-turn-results, .opponents
+      width: 100%
