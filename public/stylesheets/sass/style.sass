@@ -1,4 +1,5 @@
 @import "variables"
+@import "header"
 @import "hand"
 @import "books"
 @import "opponents"
@@ -30,25 +31,6 @@ body
   padding: 0.5em 1em
   margin: 0 auto
   border-bottom: $light-border
-
-.main-nav
-  background-color: $dark-color
-  
-  ul
-    margin: 0 auto
-    width: 800px
-    li
-      display: inline-block
-      border: 1px solid $dark-color
-      // background: linear-gradient($gradient-light, $gradient-dark)
-      &:hover
-        background: linear-gradient($gradient-dark, $gradient-light)
-    a
-      display: block
-      height: 100%
-      text-decoration: none
-      color: $main-color
-      padding: .75em 2em
 
 form
   margin-bottom: 0.2em
