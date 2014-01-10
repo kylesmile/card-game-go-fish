@@ -1,5 +1,7 @@
-section.books
-	h1 Books >
+section.books[id="books"]
+	h1 Books
+    a.show-books< href="#books" >
+    a.hide-books< href="#" <
 	- books.each do |book|
 		ul
 			li: img src="images/cards/h#{book}.png" alt="h#{book}"
