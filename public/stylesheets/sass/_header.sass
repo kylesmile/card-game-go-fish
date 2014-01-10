@@ -7,12 +7,15 @@
     li
       display: inline-block
       border: 1px solid $dark-color
-      // background: linear-gradient($gradient-light, $gradient-dark)
+      transition: background-color 0.3s ease
       &:hover
-        background: linear-gradient($gradient-dark, $gradient-light)
+        background-color: $main-color
+        a
+          color: $dark-color
     a
       display: block
       height: 100%
       text-decoration: none
       color: $main-color
-      padding: .75em 2em
+      padding: 0.75em 2em
+      transition: color 0.3s ease
