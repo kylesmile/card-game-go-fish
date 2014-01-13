@@ -15,7 +15,19 @@ class PlayingCard
   def initialize(rank, suit='C')
     @rank, @suit = rank, suit
   end
-
+  
+  def eql?(other)
+    @rank == other.rank && @suit == other.suit
+  end
+  
+  def == other
+    eql?(other)
+  end
+  
+  def hash
+    @rank.hash ^ @suit.hash
+  end
+  
   def value
     RANKS.index(@rank)
   end
