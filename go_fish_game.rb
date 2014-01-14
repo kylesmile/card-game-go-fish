@@ -50,7 +50,7 @@ class GoFishGame
   end
   
   def books
-    @hands.map { |hand| hand.books }
+    @hands.map { |hand| hand.books.count }
   end
   
   def take_turn(opponent, card)

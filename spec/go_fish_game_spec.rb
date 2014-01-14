@@ -119,7 +119,7 @@ describe GoFishGame do
         expect(result.new_books).to eq(1)
         expect(@game.hand(1).cards.count).to eq(7)
         expect(@game.hand(2).cards.count).to eq(7)
-        expect(@game.hand(1).books).to eq(1)
+        expect(@game.hand(1).books.count).to eq(1)
         expect(@game.turn).to eq(1)
       end
     end

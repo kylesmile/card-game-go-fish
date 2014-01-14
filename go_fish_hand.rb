@@ -2,7 +2,7 @@ class GoFishHand
   attr_reader :books, :cards
   def initialize(cards)
     @cards = cards
-    @books = 0
+    @books = []
     sort_cards
     check_for_books
   end
@@ -28,12 +28,12 @@ class GoFishHand
 
     full_sets.each_with_index do |amount, i|
       if amount == 4
+        @books << PlayingCard::RANKS[i]
         new_books += 1
         @cards.delete_if { |c| c.value == i}
       end
     end
-
-    @books += new_books
+    
     new_books
   end
 

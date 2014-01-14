@@ -28,4 +28,14 @@ describe GoFishHand do
     
     expect(pretty.lines.count).to eq(10)
   end
+  
+  it "keeps track of which books it gets" do
+    hand = GoFishHand.new([PlayingCard.new('A', 'S'),
+                           PlayingCard.new('A', 'H'),
+                           PlayingCard.new('A', 'D'),
+                           PlayingCard.new('A', 'C'),
+                           PlayingCard.new('J', 'D')])
+    expect(hand.books.count).to eq 1
+    expect(hand.books).to eq ["A"]
+  end
 end

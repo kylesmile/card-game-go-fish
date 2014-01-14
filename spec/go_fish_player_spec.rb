@@ -97,7 +97,7 @@ describe GoFishPlayer do
       
       it "receives hand data from the server" do
         expect(@player.hand.number_of_cards).to eq(3)
-        expect(@player.hand.books).to eq(0)
+        expect(@player.hand.books.count).to eq(0)
         expect(@player.hand_sizes).to eq([3,5,4,6])
         expect(@result['books']).to eq([0,5,2,1])
         expect(@result['deck_size']).to eq(20)
