@@ -183,5 +183,18 @@ describe GoFishGame do
         expect(game.turn).to eq(0)
       end
     end
+    
+    context "there are no cards left in the deck" do
+      it "gives players no more cards" do
+        deck = CardDeck.new([])
+        hand1 = GoFishHand.new([PlayingCard.new('A', 'S')])
+        hand2 = GoFishHand.new([PlayingCard.new('J', 'D')])
+        @game.setup_game([hand1, hand2], deck)
+        
+        expect { @game.take_turn(2, 'A') }.not_to raise_error
+        expect(@game.hand(1).cards.count).to eq(1)
+        expect(@game.hand(2).cards.count).to eq(1)
+      end
+    end
   end
 end

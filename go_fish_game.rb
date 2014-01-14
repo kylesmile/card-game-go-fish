@@ -69,7 +69,7 @@ class GoFishGame
       result.source = "Player #{opponent}"
     end
 
-    result.got = (cards[0].rank == wanted_card.rank)
+    result.got = cards.empty? ? false : (cards[0].rank == wanted_card.rank)
     
     result.amount = cards.count
     result.new_books = hand(turn).take_cards(cards)
