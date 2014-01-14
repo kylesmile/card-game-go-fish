@@ -5,19 +5,31 @@ require_relative './go_fish_game'
 
 class LoginScreen < Sinatra::Base
   enable :sessions
+  @@usernames = {}
 
-  get('/login') { slim :login }
+  get '/login' do
+    if session['user_name']
+      redirect '/'
+    else
+      slim :login
+    end
+  end
 
-  post('/login') do
+  post '/login' do
     if params[:name].strip.empty?
-      redirect '/login'
+      @login_message = "Please choose a valid username"
+      slim :login
+    elsif @@usernames[params[:name]]
+      @login_message = "That username is in use"
+      slim :login
     else
       session['user_name'] = params[:name]
+      @@usernames[params[:name]] = session['session_id']
       game = GoFishGame.new(3)
       game.setup_game
       session['game_id'] = game.object_id
       GoFishApp.games[game.object_id] = game
-      redirect '/'
+      redirect '/games'
     end
   end
 end

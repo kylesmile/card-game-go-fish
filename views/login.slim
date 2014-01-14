@@ -1,4 +1,6 @@
 section.login
+  - if @login_message
+    p.failed = @login_message
   form method="post" action="login"
     input name="name"
     button type="submit" Log in
