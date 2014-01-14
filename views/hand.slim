@@ -1,5 +1,5 @@
 section.game
-  h1 = session['user_name'] + ' vs ' + @opponents[0..-2].map { |opponent| opponent[:name] }.join(', ') + ', and ' + @opponents.last[:name]
+  h1 = session['user_name'] + ' vs ' + @opponents[0..-2].join(', ') + ', and ' + @opponents.last
   .main-content
     == slim :_hand_section
     == slim :_books_section

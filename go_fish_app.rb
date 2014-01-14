@@ -37,28 +37,19 @@ class GoFishApp < Sinatra::Base
     @game = @@games[session['game_id']]
   end
 
-  get '/' do
-    
-    @opponents = [{name: 'Gandalf', cards: 7, books: 0}, {name: 'Bob', cards: 7, books: 0}]
-
-    @books = []
-
-    2.times do
-      @books << %w{a 2 3 4 5 6 7 8 9 10 j q k}.sample
-    end
+  get '/games' do
+    slim :games
+  end
+  
+  get '/' do #temporary
+    @opponents = ['Gandalf', 'Bob']
     
     slim :hand
   end
 
   post '/turn' do
     @result = @game.take_turn(params[:opponent].to_i, params[:card])
-    @opponents = [{name: 'Gandalf', cards: 7, books: 0}, {name: 'Bob', cards: 7, books: 0}]
-
-    @books = []
-
-    2.times do
-      @books << %w{a 2 3 4 5 6 7 8 9 10 j q k}.sample
-    end
+    @opponents = ['Gandalf', 'Bob']
     
     slim :hand
   end

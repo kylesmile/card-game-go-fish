@@ -1,10 +1,10 @@
 section.books#books
   h1
-    a.show-books href="#books" Books (#{@game.hand(1).books}) >
-    a.hide-books href="#" Books (#{@game.hand(1).books}) <
-	- @books.each do |book|
+    a.show-books href="#books" Books (#{@game.hand(1).books.count}) >
+    a.hide-books href="#" Books (#{@game.hand(1).books.count}) <
+	- @game.hand(1).books.each do |book|
 		ul
-			li: img src="images/cards/h#{book}.png" alt="h#{book}"
-			li: img src="images/cards/c#{book}.png" alt="c#{book}"
-			li: img src="images/cards/d#{book}.png" alt="d#{book}"
-			li: img src="images/cards/s#{book}.png" alt="s#{book}"
+			li: img src="images/cards/h#{book.downcase}.png" alt="h#{book}"
+			li: img src="images/cards/c#{book.downcase}.png" alt="c#{book}"
+			li: img src="images/cards/d#{book.downcase}.png" alt="d#{book}"
+			li: img src="images/cards/s#{book.downcase}.png" alt="s#{book}"

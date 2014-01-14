@@ -4,7 +4,7 @@ section.turn
     
       select id="opponent" name="opponent"
         - @opponents.each_with_index do |opponent, index|
-          option value="#{index + 2}" = opponent[:name]
+          option value="#{index + 2}" = opponent
       
       p , do you have any
       

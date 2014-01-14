@@ -7,8 +7,8 @@ section.opponents
         th Cards
         th Books
     tbody
-      - @opponents.each do |opponent|
+      - @opponents.each_with_index do |opponent, i|
         tr
-          td = opponent[:name]
-          td = opponent[:cards]
-          td = opponent[:books]
+          td = opponent
+          td = @game.hand(i + 2).cards.count
+          td = @game.hand(i + 2).books.count
