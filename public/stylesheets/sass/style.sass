@@ -34,6 +34,27 @@ body
   margin: 0 auto
   border-bottom: $light-border
 
+.create
+  float: left
+
+.join
+  float: right
+  span
+    text-align: center
+    display: block
+  .game-label, .players-label
+    font-weight: bold
+  .game-label, .name
+    float: left
+  .players-label, .players
+    float: right
+  .name
+    clear: left
+
+.create form
+  select, input, button
+    display: block
+
 form
   margin-bottom: 0.2em
   p
