@@ -1,10 +1,10 @@
 section.game
-  h1 = player_name + ' vs ' + opponents[0..-2].map { |opponent| opponent[:name] }.join(', ') + ', and ' + opponents.last[:name]
+  h1 = session['user_name'] + ' vs ' + @opponents[0..-2].map { |opponent| opponent[:name] }.join(', ') + ', and ' + @opponents.last[:name]
   .main-content
-    == slim :_hand_section, :locals => {:hand => hand}
-    == slim :_books_section, :locals => {:books => books}
-    == slim :_turn_section, :locals => {:hand => hand, :opponents => opponents}
+    == slim :_hand_section
+    == slim :_books_section
+    == slim :_turn_section
     
   .metadata
-    == slim :_last_turn_section, :locals => {:opponents => opponents}
-    == slim :_opponents_section, :locals => {:opponents => opponents}
+    == slim :_last_turn_section
+    == slim :_opponents_section

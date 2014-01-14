@@ -1,16 +1,16 @@
 section.turn
     h1 Make your move
-    form action="#" name="play" method="post"
+    form action="/turn" name="play" method="post"
     
       select id="opponent" name="opponent"
-        - opponents.each do |opponent|
-          option value="#{opponent[:name]}" = opponent[:name]
+        - @opponents.each_with_index do |opponent, index|
+          option value="#{index + 2}" = opponent[:name]
       
       p , do you have any
       
       select id="card" name="card"
-        - hand.uniq { |card| card[1..-1] }.each do |card|
-          option value="#{card[1..-1]}" = card[1..-1].upcase
+        - @game.hand(1).cards.uniq { |card| card.rank }.each do |card|
+          option value="#{card.rank}" = card.to_s.split.first
       
       p 's?
       

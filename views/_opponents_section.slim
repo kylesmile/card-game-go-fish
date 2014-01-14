@@ -7,7 +7,7 @@ section.opponents
         th Cards
         th Books
     tbody
-      - opponents.each do |opponent|
+      - @opponents.each do |opponent|
         tr
           td = opponent[:name]
           td = opponent[:cards]
