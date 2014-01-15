@@ -19,9 +19,6 @@ class LoginScreen < Sinatra::Base
     if params[:name].strip.empty?
       @login_message = "Please choose a valid username"
       slim :login
-    elsif @@usernames[params[:name]]
-      @login_message = "That username is in use"
-      slim :login
     else
       session['user_name'] = params[:name]
       @@usernames[params[:name]] = session['session_id']
