@@ -4,3 +4,5 @@ require 'spinach/capybara'
 
 Spinach::FeatureSteps.send(:include, Spinach::FeatureSteps::Capybara)
 Capybara.app = GoFishApp
+
+require_relative './extra_commands'

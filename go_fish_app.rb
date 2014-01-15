@@ -29,7 +29,7 @@ class LoginScreen < Sinatra::Base
       game.setup_game
       session['game_id'] = game.object_id
       GoFishApp.games[game.object_id] = game
-      redirect '/games'
+      redirect '/'
     end
   end
 end
