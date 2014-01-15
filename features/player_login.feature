@@ -1,7 +1,7 @@
 Feature: Player login
   As the developer
-  In order to uniquely identify players
-  I want it to have a simple login process
+  In order to identify players
+  I want it to have a good login process
   
   Scenario: Initial log in
     Given a user visiting the site
