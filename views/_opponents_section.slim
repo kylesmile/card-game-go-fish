@@ -7,8 +7,9 @@ section.opponents
         th Cards
         th Books
     tbody
-      - @opponents.each_with_index do |opponent, i|
+      - @game.players.each_with_index do |player, index|
+        - next if index + 1 == @player_number
         tr
-          td = opponent
-          td = @game.hand(i + 2).cards.count
-          td = @game.hand(i + 2).books.count
+          td = player
+          td = @game.hand(index + 1).cards.count
+          td = @game.hand(index + 1).books.count

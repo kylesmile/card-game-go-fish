@@ -2,10 +2,10 @@ require 'sinatra/base'
 require 'slim'
 require 'pry'
 require_relative './go_fish_game'
+require_relative './go_fish_game_status'
 
 class LoginScreen < Sinatra::Base
   enable :sessions
-  @@usernames = {}
 
   get '/login' do
     if session['user_name']
@@ -21,11 +21,9 @@ class LoginScreen < Sinatra::Base
       slim :login
     else
       session['user_name'] = params[:name]
-      @@usernames[params[:name]] = session['session_id']
-      game = GoFishGame.new(3)
-      game.setup_game
+      game = GoFishApp.open_game
+      game.add_player(params[:name])
       session['game_id'] = game.object_id
-      GoFishApp.games[game.object_id] = game
       redirect '/'
     end
   end
@@ -33,9 +31,25 @@ end
 
 class GoFishApp < Sinatra::Base
   @@games = {}
+  @@open_game = nil
+  
+  def self.reset
+    @@games = {}
+    @@open_game = nil
+  end
+  
   def self.games
     @@games
   end
+  
+  def self.open_game
+    unless @@open_game
+      @@open_game = GoFishGameStatus.new(2)
+      @@games[open_game.object_id] = @@open_game
+    end
+    @@open_game
+  end
+  
   # middleware will run before filters
   use LoginScreen
 
@@ -45,20 +59,16 @@ class GoFishApp < Sinatra::Base
     end
     @game = @@games[session['game_id']]
   end
-
-  get '/games' do
-    slim :games
-  end
   
-  get '/' do #temporary
-    @opponents = ['Gandalf', 'Bob']
+  get '/' do
+    @player_number = @game.players.index(session['user_name']) + 1
     
     slim :hand
   end
 
   post '/turn' do
+    @player_number = @game.players.index(session['user_name']) + 1
     @result = @game.take_turn(params[:opponent].to_i, params[:card])
-    @opponents = ['Gandalf', 'Bob']
     
     slim :hand
   end

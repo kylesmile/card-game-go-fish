@@ -1,5 +1,5 @@
 section.hand
   h1 Hand
   ul
-    - @game.hand(1).cards.each do |card|
+    - @game.hand(@player_number).cards.each do |card|
       li: img src="images/cards/#{card.suit.downcase}#{card.rank.downcase}.png" alt="#{card.to_s}"
