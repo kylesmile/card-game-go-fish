@@ -62,7 +62,6 @@ class GoFishApp < Sinatra::Base
   
   get '/' do
     @player_number = @game.players.index(session['user_name']) + 1
-    
     slim :hand
   end
 

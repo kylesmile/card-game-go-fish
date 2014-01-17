@@ -7,4 +7,5 @@ Feature: Second player
     Given one player is already connected
     When the second player connects
     Then they should both be in the same game
-    And they should each have the proper hands and things
+    And they should each have the proper hands
+    And only player 1 should be able to ask for cards

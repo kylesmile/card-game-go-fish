@@ -3,7 +3,8 @@ section.game
   .main-content
     == slim :_hand_section
     == slim :_books_section
-    == slim :_turn_section
+    - if @game.turn == @player_number
+      == slim :_turn_section
     
   .metadata
     == slim :_last_turn_section
