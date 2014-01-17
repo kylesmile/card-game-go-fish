@@ -9,7 +9,7 @@ class Spinach::Features::SecondPlayer < Spinach::FeatureSteps
   end
 
   step 'the second player connects' do
-    ::Capybara.session_name = "second player"
+    session("second player")
     visit '/'
     login 'Bob'
   end
@@ -17,7 +17,7 @@ class Spinach::Features::SecondPlayer < Spinach::FeatureSteps
   step 'they should both be in the same game' do
     @bob_game = GoFishApp.games[cookies['game_id']]
     
-    ::Capybara.session_name = :default
+    session(:default)
     @george_game = GoFishApp.games[cookies['game_id']]
     
     expect(@bob_game).to eq(@george_game)
@@ -33,7 +33,7 @@ class Spinach::Features::SecondPlayer < Spinach::FeatureSteps
       end
     end
     
-    ::Capybara.session_name = "second player"
+    session("second player")
     
     within('.hand') do
       @game.hand(2).cards.each do |card|
@@ -46,7 +46,7 @@ class Spinach::Features::SecondPlayer < Spinach::FeatureSteps
     
     expect(page).not_to have_css('.turn')
     
-    ::Capybara.session_name = :default
+    session(:default)
     
     expect(page).to have_css('.turn')
     

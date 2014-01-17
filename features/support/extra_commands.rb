@@ -11,6 +11,9 @@ class Spinach::FeatureSteps
     current_scope.session.driver.request.session
   end
   
+  def session(name)
+    ::Capybara.session_name = name
+  end
 end
 
 class Capybara::Session
