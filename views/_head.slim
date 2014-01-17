@@ -8,6 +8,6 @@ head
     javascript:
       var pusher = new Pusher('a10093afc889beb4f1a6');
       var channel = pusher.subscribe('#{session['game_id']}');
-      channel.bind('new_turn', function(data) {
-        alert(data.message);
+      channel.bind('refresh', function(data) {
+        location.reload(false)
       });

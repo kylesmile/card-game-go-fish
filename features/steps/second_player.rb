@@ -1,6 +1,7 @@
 class Spinach::Features::SecondPlayer < Spinach::FeatureSteps
   before do
     GoFishApp.reset
+    ::Capybara.current_driver = :poltergeist
   end
   
   step 'one player is already connected' do
@@ -15,18 +16,18 @@ class Spinach::Features::SecondPlayer < Spinach::FeatureSteps
   end
 
   step 'they should both be in the same game' do
-    @bob_game = GoFishApp.games[cookies['game_id']]
+    # @bob_game = GoFishApp.games[cookies['game_id']]
     
-    session(:default)
-    @george_game = GoFishApp.games[cookies['game_id']]
+    # session(:default)
+    # @george_game = GoFishApp.games[cookies['game_id']]
     
-    expect(@bob_game).to eq(@george_game)
+    # expect(@bob_game).to eq(@george_game)
+    expect(GoFishApp.games.count).to eq(1)
   end
 
   step 'they should each have the proper hands' do
-    visit(current_path)
-    
-    @game = @bob_game
+    session(:default)
+    @game = GoFishApp.games.values.first
     within('.hand') do
       @game.hand(1).cards.each do |card|
         expect(page).to have_card(card)
@@ -54,8 +55,10 @@ class Spinach::Features::SecondPlayer < Spinach::FeatureSteps
       within('#opponent') do
         expect(page).to have_css('option[value="2"]')
         expect(page).not_to have_css('option[value="1"]')
-        expect(page).to have_content('Bob')
-        expect(page).not_to have_content('George')
+        within('option') do
+          expect(page).to have_content('Bob')
+          expect(page).not_to have_content('George')
+        end
       end
       
       within('#card') do

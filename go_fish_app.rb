@@ -1,6 +1,7 @@
 require 'sinatra/base'
 require 'slim'
 require 'pry'
+require 'pusher'
 require_relative './go_fish_game'
 require_relative './go_fish_game_status'
 
@@ -23,6 +24,7 @@ class LoginScreen < Sinatra::Base
       session['user_name'] = params[:name]
       game = GoFishApp.open_game
       game.add_player(params[:name])
+      GoFishApp.send_refresh(game.object_id)
       session['game_id'] = game.object_id
       redirect '/'
     end
@@ -32,6 +34,7 @@ end
 class GoFishApp < Sinatra::Base
   @@games = {}
   @@open_game = nil
+  Pusher.url = "http://a10093afc889beb4f1a6:f295db5056072e839066@api.pusherapp.com/apps/63695"
   
   def self.reset
     @@games = {}
@@ -48,6 +51,12 @@ class GoFishApp < Sinatra::Base
       @@games[open_game.object_id] = @@open_game
     end
     @@open_game
+  end
+  
+  def self.send_refresh(game_id)
+    Pusher[game_id.to_s].trigger('refresh', {
+      message: 'refresh'
+    })
   end
   
   # middleware will run before filters
