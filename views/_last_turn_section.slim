@@ -1,7 +1,5 @@
 section.last-turn-results
   h1 Previous turn results
-  / - asked = @opponents[0..-2].sample[:name]
-  / - asker = @opponents.last[:name]
-  / p = "#{asker} asked #{asked} for kings, but #{asked} had none. #{asker} drew a card from the pond, but it wasn't a king."
-  / p It's your turn
-  p = "#{@result.to_s}"
+  - if @result
+    p = "#{@game.players[@result.turn - 1]} asked #{@game.players[@result.from - 1]} for #{@result.wanted}'s. He got #{@result.amount} card#{'s' unless @result.amount == 1} that he #{@result.got ? 'wanted' : "didn't want" }#{' from the pond' if @result.source == 'Pond'}, and #{@result.new_books} books."
+  p It's #{@game.turn == @player_number ? 'your' : @game.players[@game.turn - 1]}'s turn

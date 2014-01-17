@@ -70,14 +70,14 @@ class GoFishApp < Sinatra::Base
   end
   
   get '/' do
+    @result = @game.last_turn
     @player_number = @game.players.index(session['user_name']) + 1
     slim :hand
   end
 
   post '/turn' do
-    @player_number = @game.players.index(session['user_name']) + 1
-    @result = @game.take_turn(params[:opponent].to_i, params[:card])
-    
-    slim :hand
+    @game.take_turn(params[:opponent].to_i, params[:card])
+    GoFishApp.send_refresh(@game.object_id)
+    redirect '/'
   end
 end
