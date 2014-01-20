@@ -3,6 +3,7 @@ Feature: Second player
   In order to let people play Go Fish
   I want two players to be able to connect to the same game
   
+  @javascript
   Scenario: Second player connects
     Given one player is already connected
     When the second player connects

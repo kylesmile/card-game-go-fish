@@ -3,6 +3,7 @@ Feature: Playing a game
   In order to let player play a game
   I want everything to work
   
+  @javascript
   Scenario: Taking a turn
     Given two players connected
     When one asks for cards

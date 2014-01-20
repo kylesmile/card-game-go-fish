@@ -1,9 +1,4 @@
 class Spinach::Features::SecondPlayer < Spinach::FeatureSteps
-  before do
-    GoFishApp.reset
-    ::Capybara.current_driver = :poltergeist
-  end
-  
   step 'one player is already connected' do
     session("first player")
     visit '/'
