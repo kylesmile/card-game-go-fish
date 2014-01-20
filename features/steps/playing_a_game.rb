@@ -14,19 +14,21 @@ class Spinach::Features::PlayingAGame < Spinach::FeatureSteps
       click_on('Ask')
     end
   end
-
+  
   step 'both should see the results' do
+    session('player 1')
     within('.last-turn-results') do
       expect(page).to have_content('Bob asked George for')
     end
     session('player 2')
-    binding.pry
+    visit(current_path) #CHEATER!
     within('.last-turn-results') do
       expect(page).to have_content('Bob asked George for')
     end
   end
-
+  
   step 'both should see whose turn it is' do
+    session('player 2')
     within('.last-turn-results') do
       expect(page).to have_content("It's ")
       expect(page).to have_content(" turn")
@@ -37,4 +39,5 @@ class Spinach::Features::PlayingAGame < Spinach::FeatureSteps
       expect(page).to have_content(" turn")
     end
   end
+
 end
