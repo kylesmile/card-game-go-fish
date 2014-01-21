@@ -1,6 +1,7 @@
 class Spinach::FeatureSteps
   
   def login(who)
+    visit '/login'
     within('.login') do
       fill_in 'name', :with => who
       click_on 'Log in'

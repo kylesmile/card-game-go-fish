@@ -2,12 +2,12 @@ head
   meta charset="utf-8"
   meta name="viewport" content="initial-scale=1.0"
   title Go Fish
-  link href="stylesheets/style.css" rel="stylesheet"
-  - if session['game_id']
+  link href="/stylesheets/style.css" rel="stylesheet"
+  - if params[:id]
     script src="http://js.pusher.com/2.1/pusher.min.js" type="text/javascript"
     javascript:
       var pusher = new Pusher('a10093afc889beb4f1a6');
-      var channel = pusher.subscribe('#{session['game_id']}');
+      var channel = pusher.subscribe('#{params[:id]}');
       channel.bind('refresh', function(data) {
         location.reload(false)
       });

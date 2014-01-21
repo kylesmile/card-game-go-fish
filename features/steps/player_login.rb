@@ -9,12 +9,16 @@ class Spinach::Features::PlayerLogin < Spinach::FeatureSteps
   end
 
   step 'he inputs a valid username' do
-    login 'George'
+    within('.login') do
+      fill_in 'name', :with => 'George'
+      click_on 'Log in'
+    end
   end
 
   step 'he should be redirected to a new game' do
-    expect(current_path).to eq("/")
-    game = GoFishApp.games[cookies['game_id']]
+    match = current_path.match(/\/games\/(\d+)/)
+    expect(match).not_to be_nil
+    game = GoFishApp.games[match[1]]
     within('.hand') do
       game.hand(1).cards.each do |card|
         expect(page).to have_card(card)
@@ -27,7 +31,10 @@ class Spinach::Features::PlayerLogin < Spinach::FeatureSteps
   end
 
   step 'he inputs an invalid username' do
-    login '   '
+    within('.login') do
+      fill_in 'name',  :with => '   '
+      click_on 'Log in'
+    end
   end
 
   step 'he should be prompted to pick a different name' do

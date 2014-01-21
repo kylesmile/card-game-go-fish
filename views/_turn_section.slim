@@ -1,6 +1,6 @@
 section.turn
     h1 Make your move
-    form action="/turn" name="play" method="post"
+    form action="/games/#{@game.object_id}/turn" name="play" method="post"
     
       select id="opponent" name="opponent"
         - @game.players.each_with_index do |player, index|

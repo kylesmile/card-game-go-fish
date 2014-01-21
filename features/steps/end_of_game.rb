@@ -8,10 +8,8 @@ class Spinach::Features::EndOfGame < Spinach::FeatureSteps
   
   step 'two players are connected' do
     session('player 1')
-    visit '/'
     login('Bob')
     session('player 2')
-    visit '/'
     login('George')
   end
 
@@ -23,11 +21,11 @@ class Spinach::Features::EndOfGame < Spinach::FeatureSteps
   end
 
   step 'all players should be redirected to an end game screen' do
-    expect(current_path).to eq('/end')
+    expect(current_path).to match(/\/games\/\d+\/end/)
     
     session('player 2')
     visit(current_path) #CHEATER!
-    expect(current_path).to eq('/end')
+    expect(current_path).to match(/\/games\/\d+\/end/)
   end
 
   step 'the winner should be announced' do

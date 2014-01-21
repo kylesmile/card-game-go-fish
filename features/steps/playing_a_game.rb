@@ -1,10 +1,8 @@
 class Spinach::Features::PlayingAGame < Spinach::FeatureSteps
   step 'two players connected' do
     session('player 1')
-    visit '/'
     login 'Bob'
     session('player 2')
-    visit '/'
     login 'George'
   end
 

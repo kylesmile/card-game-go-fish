@@ -1,29 +1,27 @@
 class Spinach::Features::SecondPlayer < Spinach::FeatureSteps
   step 'one player is already connected' do
     session("first player")
-    visit '/'
     login 'George'
   end
 
   step 'the second player connects' do
     session("second player")
-    visit '/'
     login 'Bob'
   end
 
   step 'they should both be in the same game' do
-    # @bob_game = GoFishApp.games[cookies['game_id']]
+    bob_game_id = current_path.match(/\/games\/(\d+)/)[1]
     
-    # session("first player")
-    # @george_game = GoFishApp.games[cookies['game_id']]
+    session("first player")
+    george_game_id = current_path.match(/\/games\/(\d+)/)[1]
     
-    # expect(@bob_game).to eq(@george_game)
+    expect(bob_game_id).to eq(george_game_id)
     expect(GoFishApp.games.count).to eq(1)
+    @game = GoFishApp.games[bob_game_id]
   end
-
+  
   step 'they should each have the proper hands' do
     session("first player")
-    @game = GoFishApp.games.values.first
     within('.hand') do
       @game.hand(1).cards.each do |card|
         expect(page).to have_card(card)

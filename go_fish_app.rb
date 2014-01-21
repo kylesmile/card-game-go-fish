@@ -9,11 +9,7 @@ class LoginScreen < Sinatra::Base
   enable :sessions
 
   get '/login' do
-    if session['user_name']
-      redirect '/'
-    else
-      slim :login
-    end
+    slim :login
   end
 
   post '/login' do
@@ -24,9 +20,9 @@ class LoginScreen < Sinatra::Base
       session['user_name'] = params[:name]
       game = GoFishApp.open_game
       game.add_player(params[:name])
-      GoFishApp.send_refresh(game.object_id)
-      session['game_id'] = game.object_id
-      redirect '/'
+      GoFishApp.send_refresh(game.object_id.to_s)
+      # session['game_id'] = game.object_id
+      redirect "/games/#{game.object_id}"
     end
   end
 end
@@ -46,16 +42,16 @@ class GoFishApp < Sinatra::Base
   end
   
   def self.open_game
-    unless @@open_game
+    if @@open_game.nil? || @@open_game.open_slots == 0
       @@open_game = GoFishGameStatus.new(2)
-      @@games[open_game.object_id] = @@open_game
+      @@games[open_game.object_id.to_s] = @@open_game
     end
     @@open_game
   end
   
   def self.create_game(hands = nil, deck = nil)
     @@open_game = GoFishGameStatus.new(2, hands, deck)
-    @@games[open_game.object_id] = @@open_game
+    @@games[open_game.object_id.to_s] = @@open_game
   end
   
   def self.send_refresh(game_id)
@@ -71,24 +67,31 @@ class GoFishApp < Sinatra::Base
     unless session['user_name']
       redirect '/login'
     end
-    @game = @@games[session['game_id']]
+    # @game = @@games[session['game_id']]
   end
   
   get '/' do
-    redirect '/end' if @game.winner
+    redirect '/login'
+  end
+  
+  get '/games/:id' do |game_id|
+    @game = @@games[game_id]
+    redirect "/games/#{game_id}/end" if @game.winner
     @result = @game.last_turn
     @player_number = @game.players.index(session['user_name']) + 1
     slim :hand
   end
 
-  post '/turn' do
+  post '/games/:id/turn' do |game_id|
+    @game = @@games[game_id]
     @game.take_turn(params[:opponent].to_i, params[:card])
     GoFishApp.send_refresh(@game.object_id)
-    redirect '/end' if @game.winner
-    redirect '/'
+    redirect "/games/#{game_id}/end" if @game.winner
+    redirect "/games/#{game_id}"
   end
   
-  get '/end' do
+  get '/games/:id/end' do |game_id|
+    @game = @@games[game_id]
     slim :end_game
   end
 end
