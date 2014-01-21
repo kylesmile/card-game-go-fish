@@ -1,0 +1,7 @@
+section.end
+  h1
+    - winner = @game.players[@game.winner - 1]
+    - if winner == session['user_name']
+      | You win!
+    - else
+      | #{winner} wins!

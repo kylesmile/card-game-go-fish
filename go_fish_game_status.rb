@@ -3,9 +3,9 @@ require_relative './go_fish_game'
 class GoFishGameStatus
   attr_reader :game, :open_slots, :players, :last_turn
   
-  def initialize(player_count)
+  def initialize(player_count, hands = nil, deck = nil)
     @game = GoFishGame.new(player_count)
-    @game.setup_game
+    @game.setup_game(hands, deck)
     @open_slots = player_count
     @players = []
   end

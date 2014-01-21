@@ -53,6 +53,11 @@ class GoFishApp < Sinatra::Base
     @@open_game
   end
   
+  def self.create_game(hands = nil, deck = nil)
+    @@open_game = GoFishGameStatus.new(2, hands, deck)
+    @@games[open_game.object_id] = @@open_game
+  end
+  
   def self.send_refresh(game_id)
     Pusher[game_id.to_s].trigger('refresh', {
       message: 'refresh'
@@ -70,6 +75,7 @@ class GoFishApp < Sinatra::Base
   end
   
   get '/' do
+    redirect '/end' if @game.winner
     @result = @game.last_turn
     @player_number = @game.players.index(session['user_name']) + 1
     slim :hand
@@ -78,6 +84,11 @@ class GoFishApp < Sinatra::Base
   post '/turn' do
     @game.take_turn(params[:opponent].to_i, params[:card])
     GoFishApp.send_refresh(@game.object_id)
+    redirect '/end' if @game.winner
     redirect '/'
+  end
+  
+  get '/end' do
+    slim :end_game
   end
 end
