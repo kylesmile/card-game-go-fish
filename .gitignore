@@ -20,3 +20,4 @@ doc/
 # Custom Stuff
 .sass-cache
 public/stylesheets/style.css
+capybara-*.html

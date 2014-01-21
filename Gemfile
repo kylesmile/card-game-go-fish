@@ -9,6 +9,7 @@ group :test, :development do
   gem 'pry'
   gem 'spinach'
   gem 'rspec'
+  gem 'launchy'
 end
 
 group :test do
