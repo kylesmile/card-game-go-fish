@@ -4,7 +4,7 @@ section.books#books
     a.hide-books href="#" Books (#{@game.hand(@player_number).books.count}) <
 	- @game.hand(@player_number).books.each do |book|
 		ul
-			li: img src="images/cards/h#{book.downcase}.png" alt="h#{book}"
-			li: img src="images/cards/c#{book.downcase}.png" alt="c#{book}"
-			li: img src="images/cards/d#{book.downcase}.png" alt="d#{book}"
-			li: img src="images/cards/s#{book.downcase}.png" alt="s#{book}"
+			li: img src="/images/cards/h#{book.downcase}.png" alt="h#{book}"
+			li: img src="/images/cards/c#{book.downcase}.png" alt="c#{book}"
+			li: img src="/images/cards/d#{book.downcase}.png" alt="d#{book}"
+			li: img src="/images/cards/s#{book.downcase}.png" alt="s#{book}"
