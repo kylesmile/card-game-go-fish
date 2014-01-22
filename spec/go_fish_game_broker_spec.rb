@@ -36,4 +36,35 @@ describe GoFishGameBroker do
     expect(game_id3).to eq(game_id4)
     expect(@game_broker.game(game_id4).players).to eq(['Tom', 'Sam'])
   end
+  
+  context 'game in progress' do
+    before do
+      @game_id = @game_broker.associate_player('Bob')
+      @game_broker.associate_player('George')
+    end
+    
+    it 'notifies those interested when someone takes a turn' do
+      result = nil
+      @game_broker.subscribe(@game_id, self) do |turn_result|
+        result = turn_result
+      end
+      
+      @game_broker.take_turn(@game_id, 'George', 'A')
+      
+      expect(result).to be_a(GoFishRoundResult)
+    end
+    
+    it 'allows unsubscribes' do
+      result = nil
+      @game_broker.subscribe(@game_id, self) do |turn_result|
+        result = turn_result
+      end
+      
+      @game_broker.unsubscribe(@game_id, self)
+      
+      @game_broker.take_turn(@game_id, 'George', 'A')
+      
+      expect(result).to be_nil
+    end
+  end
 end
