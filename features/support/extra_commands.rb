@@ -22,3 +22,20 @@ class Capybara::Session
     has_css?("img[alt=\"#{card.to_s}\"]")
   end
 end
+
+class GoFishApp
+  def self.reset
+    @@game_broker = ::GoFishGameBroker.new
+  end
+  
+  def self.create_game(hands, deck)
+    @@game_broker.create_game(hands, deck)
+  end
+end
+
+class GoFishGameBroker
+  def create_game(hands, deck)
+    @open_game = GoFishGameStatus.new(2, hands, deck)
+    @games[@open_game.object_id.to_s] = @open_game
+  end
+end

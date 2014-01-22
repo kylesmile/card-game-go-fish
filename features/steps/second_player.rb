@@ -16,8 +16,8 @@ class Spinach::Features::SecondPlayer < Spinach::FeatureSteps
     george_game_id = current_path.match(/\/games\/(\d+)/)[1]
     
     expect(bob_game_id).to eq(george_game_id)
-    expect(GoFishApp.games.count).to eq(1)
-    @game = GoFishApp.games[bob_game_id]
+    expect(GoFishApp.game_broker.game_count).to eq(1)
+    @game = GoFishApp.game_broker.game(bob_game_id)
   end
   
   step 'they should each have the proper hands' do

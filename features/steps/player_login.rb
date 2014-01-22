@@ -18,7 +18,7 @@ class Spinach::Features::PlayerLogin < Spinach::FeatureSteps
   step 'he should be redirected to a new game' do
     match = current_path.match(/\/games\/(\d+)/)
     expect(match).not_to be_nil
-    game = GoFishApp.games[match[1]]
+    game = GoFishApp.game_broker.game(match[1])
     within('.hand') do
       game.hand(1).cards.each do |card|
         expect(page).to have_card(card)
