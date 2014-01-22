@@ -18,6 +18,7 @@ class LoginScreen < Sinatra::Base
     else
       session['user_name'] = params[:name]
       game_id = GoFishApp.game_broker.associate_player(params[:name])
+      GoFishApp.subscribe_to_game(game_id)
       GoFishApp.send_refresh(game_id)
       redirect "/games/#{game_id}"
     end
@@ -36,6 +37,12 @@ class GoFishApp < Sinatra::Base
     Pusher[game_id.to_s].trigger('refresh', {
       message: 'refresh'
     })
+  end
+  
+  def self.subscribe_to_game(game_id)
+    @@game_broker.subscribe(game_id, self) do
+      GoFishApp.send_refresh(game_id)
+    end
   end
   
   # middleware will run before filters
@@ -60,10 +67,7 @@ class GoFishApp < Sinatra::Base
   end
 
   post '/games/:id/turn' do |game_id|
-    @game = @@game_broker.game(game_id)
-    @game.take_turn(params[:opponent].to_i, params[:card])
-    GoFishApp.send_refresh(game_id)
-    redirect "/games/#{game_id}/end" if @game.winner
+    @@game_broker.take_turn(game_id, params[:opponent], params[:card])
     redirect "/games/#{game_id}"
   end
   

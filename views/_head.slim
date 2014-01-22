@@ -3,7 +3,7 @@ head
   meta name="viewport" content="initial-scale=1.0"
   title Go Fish
   link href="/stylesheets/style.css" rel="stylesheet"
-  - if params[:id]
+  - if params[:id] && (@game.open_slots > 0 || @player_number != @game.turn)
     script src="http://js.pusher.com/2.1/pusher.min.js" type="text/javascript"
     javascript:
       var pusher = new Pusher('a10093afc889beb4f1a6');

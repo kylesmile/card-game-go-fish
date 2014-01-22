@@ -15,6 +15,7 @@ class Spinach::Features::EndOfGame < Spinach::FeatureSteps
 
   step 'a player makes the last move' do
     session('player 1')
+    visit(current_path) #CHEATER!
     within('.turn') do
       click_on('Ask')
     end

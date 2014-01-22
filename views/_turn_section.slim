@@ -5,7 +5,7 @@ section.turn
       select id="opponent" name="opponent"
         - @game.players.each_with_index do |player, index|
           - next if index + 1 == @player_number
-          option value="#{index + 1}" = player
+          option value="#{player}" = player
       
       p , do you have any
       

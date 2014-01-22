@@ -8,6 +8,7 @@ class Spinach::Features::PlayingAGame < Spinach::FeatureSteps
 
   step 'one asks for cards' do
     session('player 1')
+    visit(current_path) #CHEATER!
     within('.turn') do
       click_on('Ask')
     end

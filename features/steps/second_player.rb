@@ -41,13 +41,13 @@ class Spinach::Features::SecondPlayer < Spinach::FeatureSteps
     expect(page).not_to have_css('.turn')
     
     session("first player")
-    
+    visit(current_path) #CHEATER!
     expect(page).to have_css('.turn')
     
     within('.turn') do
       within('#opponent') do
-        expect(page).to have_css('option[value="2"]')
-        expect(page).not_to have_css('option[value="1"]')
+        expect(page).to have_css('option[value="Bob"]')
+        expect(page).not_to have_css('option[value="George"]')
         within('option') do
           expect(page).to have_content('Bob')
           expect(page).not_to have_content('George')
